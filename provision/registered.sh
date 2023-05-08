@@ -30,4 +30,7 @@ if (!config) {
     log('\''No config returned from API'\'');
     return;
 }
+
+ declare("Tags.Registered", null, { value: true });
 '
+
