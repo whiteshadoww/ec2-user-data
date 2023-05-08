@@ -81,7 +81,7 @@ function refreshWlan() {
 
 function setUpWlan(config) {
 
-    if (!(config.WLan.Password && config.WLan.Password !== ""))
+    if (!config.WLan.Password || config.WLan.Password === "")
         return;
 
     declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID", { value: now }, { value: config.WLan.Name });

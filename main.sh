@@ -134,7 +134,7 @@ echo "Finished GenieACS installation"
 sleep 5
 
 bash ./provision/bootstrap.sh
-bash ./provision/registred.sh
+bash ./provision/registered.sh
 
 bash ./preset/bootstrap.sh
 bash ./preset/registered.sh
