@@ -2,8 +2,8 @@
 
 curl --location --request PUT 'http://localhost:7557/provisions/oneisp-registered' \
 --data-raw 'const now = Date.now();
-declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", { value: now }, { value: "9a12c6a1-bfc8-41ab-aa1d-df5c120dfed3" });
-declare("InternetGatewayDevice.ManagementServer.ConnectionRequestPassword", { value: now }, { value: "d1e1a1f0-c1cb-4bd7-a944-c8ca6f2052fb" })
+declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", { value: now }, { value: "$ConnectionRequestUsername" });
+declare("InternetGatewayDevice.ManagementServer.ConnectionRequestPassword", { value: now }, { value: "$ConnectionRequestPassword" })
 
 let serialNumber = declare("DeviceID.SerialNumber", { value: 1 }).value[0];
 let productClass = declare("DeviceID.ProductClass", { value: 1 }).value[0];
@@ -31,6 +31,6 @@ if (!config) {
     return;
 }
 
- declare("Tags.Registered", null, { value: true });
+declare("Tags.Registered", null, { value: true });
 '
 
