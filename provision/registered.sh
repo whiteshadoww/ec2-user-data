@@ -36,10 +36,6 @@ log(JSON.stringify(args));
 
 //Get the PPPoE creds
 let config = ext("cpe-config", "initDevice", JSON.stringify(args));
-if (!config) {
-    log("No config returned from API");
-    return;
-}
 
 declare("Tags.Registered", null, {value: true});
 '
