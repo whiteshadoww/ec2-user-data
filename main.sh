@@ -9,15 +9,41 @@ echo ""
 echo ""
 
 # install MongoDB
-echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list
+curl -fsSL https://pgp.mongodb.com/server-6.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
 sudo DEBIAN_FRONTEND=noninteractive apt update -y -qq
-sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq libssl1.1
+sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq mongodb-org
 
-wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
-# sudo add-apt-repository 'deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse'
-sudo add-apt-repository -y 'deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse'
-# sudo apt update && sudo apt install -y mongodb-org node-mongodb
-sudo DEBIAN_FRONTEND=noninteractive apt update -y -qq && sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq mongodb-org
+sudo tee /etc/mongod.conf <<EOF #mongod.conf
+
+# for documentation of all options, see:
+#   http://docs.mongodb.org/manual/reference/configuration-options/
+
+# Where and how to store data.
+storage:
+  dbPath: /var/lib/mongodb
+  wiredTiger:
+    engineConfig:
+      cacheSizeGB: 0.25
+
+# where to write logging data.
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+
+# network interfaces
+net:
+  port: 27017
+  bindIp: 127.0.0.1
+
+# how the process runs
+processManagement:
+  timeZoneInfo: /usr/share/zoneinfo
+
+EOF
+
+sudo systemctl start mongod
 sudo systemctl enable --now mongod
 sudo systemctl status mongod --no-pager
 echo "wait 5 seconds"
