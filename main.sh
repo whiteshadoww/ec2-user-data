@@ -74,10 +74,10 @@ EOF
 
 cp config/ext/cpe-config.js /opt/genieacs/ext/cpe-config.js
 
-sudo chown genieacs. /opt/genieacs -R
+sudo chown -R genieacs. /opt/genieacs
 sudo chmod 600 /opt/genieacs/genieacs.env
 sudo mkdir -p /var/log/genieacs
-sudo chown genieacs. /var/log/genieacs
+sudo chown -R genieacs. /var/log/genieacs
 
 # create systemd unit files
 ## CWMP
