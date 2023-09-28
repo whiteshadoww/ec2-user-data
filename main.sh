@@ -1,5 +1,11 @@
 #!/bin/sh
 
+#Install Docker
+wget -O - https://gist.githubusercontent.com/wdullaer/f1af16bd7e970389bad3/raw/install.sh | bash
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+sudo su -s ${USER}
+
 # install NodeJS
 echo "Installing NodeJS..."
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo bash -
@@ -221,6 +227,8 @@ logfile=/var/log/ip-up.log
 
 # Add DeviceIPPools range to routing table on VPN interface
 sudo ip route add  $DEVICE_IP_POOLS via 10.99.99.100 >> /var/log/ip-up.log 2>&1
+#Add OLT IP Pools
+sudo ip route add  10.98.0.2 via 10.99.99.100 >> /var/log/ip-up.log 2>&1
 EOF
 
 sudo chmod +x /etc/ppp/ip-up
@@ -236,3 +244,20 @@ sudo iptables -A INPUT -i ppp+ -j ACCEPT
 sudo iptables -A OUTPUT -o ppp+ -j ACCEPT
 sudo iptables -A FORWARD -i ppp+ -j ACCEPT
 sudo iptables -A FORWARD -o ppp+ -j ACCEPT
+
+mkdir -p /var/app/
+sudo tee /var/app/docker-compose.yaml <<EOF
+version: '3.2'
+
+services:
+
+ oltproxy:
+   image: oneispcore/oltproxy:latest
+   restart: always
+   ports:
+     - 8000:80
+
+EOF
+
+docker compose -f /var/app/docker-compose.yaml  up -d
+
