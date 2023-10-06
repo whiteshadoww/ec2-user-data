@@ -252,12 +252,11 @@ version: '3.2'
 services:
 
  oltproxy:
-   image: oneispcore/oltproxy:latest
+   image: oneispcore/oltapi:latest
    restart: always
    ports:
-     - 8000:80
+     - 8000:8001
 
 EOF
 
-docker compose -f /var/app/docker-compose.yaml  up -d
-
+docker compose -f /var/app/docker-compose.yaml up -d
