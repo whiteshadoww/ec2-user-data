@@ -228,7 +228,7 @@ logfile=/var/log/ip-up.log
 # Add DeviceIPPools range to routing table on VPN interface
 sudo ip route add  $DEVICE_IP_POOLS via 10.99.99.100 >> /var/log/ip-up.log 2>&1
 #Add OLT IP Pools
-sudo ip route add  10.98.0.2 via 10.99.99.100 >> /var/log/ip-up.log 2>&1
+sudo ip route add  10.98.0.1/24 via 10.99.99.100 >> /var/log/ip-up.log 2>&1
 EOF
 
 sudo chmod +x /etc/ppp/ip-up
