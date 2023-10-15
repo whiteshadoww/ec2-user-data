@@ -2,6 +2,10 @@
 
 curl --location --request PUT 'http://localhost:7557/provisions/oneisp-bootstrap' \
 --data-raw 'const now = Date.now();
+declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", { value: now }, { value: "'"$ConnectionRequestUsername"'" });
+declare("InternetGatewayDevice.ManagementServer.ConnectionRequestPassword", { value: now }, { value: "'"$ConnectionRequestPassword"'" })
+declare("InternetGatewayDevice.ManagementServer.PeriodicInformEnable", { value: now }, { value: true })
+declare("InternetGatewayDevice.ManagementServer.PeriodicInformInterval", { value: now }, { value: 600 })
 
 let model = declare("InternetGatewayDevice.DeviceInfo.ModelName", { value: 1 }).value[0];
 let serialNumber = declare("DeviceID.SerialNumber", { value: 1 }).value[0];
@@ -67,8 +71,8 @@ function updateTags(config) {
 function refreshWlan() {
     //Refresh the WLAN config
     log('\''Refreshing WLAN'\'');
-    declare("InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.*", { path: now });
-    declare("InternetGatewayDevice.LANDevice.*.WLANConfiguration.*.SSID", { value: now });
+    declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.*.*", { path: now });
+    declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.*.SSID", { value: now });
     declare("InternetGatewayDevice.LANDevice.1.WLANConfiguration.*.Enable", { value: now }, { value: true });
 
 }

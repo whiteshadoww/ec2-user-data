@@ -67,8 +67,8 @@ function sendRequest(options, postData, callback) {
         });
 
         res.on("error", function (error) {
-            console.log('args');
-            console.log(arguments);
+            // console.log('args');
+            // console.log(arguments);
             callback(error);
         });
     });
