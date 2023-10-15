@@ -11,8 +11,8 @@ let serialNumber = declare("DeviceID.SerialNumber", {value: 1}).value[0];
 let productClass = declare("DeviceID.ProductClass", {value: 1}).value[0];
 let oui = declare("DeviceID.OUI", {value: 1}).value[0];
 
-let wifiName;
-let deviceMACAddress;
+let wifiName = "";
+let deviceMACAddress = "";
 
 let res2 = declare("InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.WANPPPConnection.1.MACAddress", {value: now});
 if (res2 && res2.value && res2.value.length) {
