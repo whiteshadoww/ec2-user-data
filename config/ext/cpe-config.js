@@ -46,8 +46,9 @@ function sendRequest(options, postData, callback) {
     const req = http.request(options, function (res) {
 
         if (res.statusCode >= 400) {
-            return callback(new Error("Unexpected error resetting PPPoE credentials. Response Code: " +
-                res.statusCode + '. Status Message: ' + res.statusMessage + '. t: ' + typeof res.statusCode));
+            console.log("Unexpected error resetting PPPoE credentials. Response Code: " +
+                res.statusCode + '. Status Message: ' + res.statusMessage + '. t: ' + typeof res.statusCode)
+            return callback(null, null);
         }
 
 
@@ -68,8 +69,8 @@ function sendRequest(options, postData, callback) {
 
         res.on("error", function (error) {
             // console.log('args');
-            // console.log(arguments);
-            callback(error);
+            console.log(error);
+            callback(null, null);
         });
     });
     req.write(postData);
