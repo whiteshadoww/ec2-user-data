@@ -8,7 +8,7 @@ curl --location --request PUT 'http://localhost:7557/presets/oneisp-reboot' \
     "events": {
         "1 BOOT": true
     },
-    "precondition": "",
+    "precondition": "Tags.Provisioned IS NULL",
     "configurations": [
         {
             "type": "provision",

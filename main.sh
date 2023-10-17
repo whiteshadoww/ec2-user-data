@@ -170,7 +170,7 @@ bash ./provision/registered.sh
 
 bash ./preset/bootstrap.sh
 bash ./preset/registered.sh
-#bash ./preset/reboot.sh
+bash ./preset/reboot.sh
 
 ############################VPN CONFIGS ##################
 tee /etc/pptpd.conf <<EOF ##/etc/pptpd.conf

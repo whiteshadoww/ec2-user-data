@@ -8,7 +8,7 @@ curl --location --request PUT 'http://localhost:7557/presets/oneisp-registered' 
     "events": {
         "Registered": true
     },
-    "precondition": "",
+    "precondition": "Tags.Registered IS NULL",
     "configurations": [
         {
             "type": "provision",
