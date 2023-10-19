@@ -251,11 +251,17 @@ version: '3.2'
 
 services:
 
- oltproxy:
-   image: oneispcore/oltapi:latest
-   restart: always
-   ports:
-     - 8000:8001
+  oltproxy:
+    image: oneispcore/oltapi:latest
+    restart: always
+    ports:
+      - 8000:8001
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 300
 
 EOF
 
