@@ -5,6 +5,20 @@ curl --location --request PUT 'http://localhost:7557/provisions/oneisp-bootstrap
 declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", { value: now }, { value: "'"$ConnectionRequestUsername"'" });
 declare("InternetGatewayDevice.ManagementServer.ConnectionRequestPassword", { value: now }, { value: "'"$ConnectionRequestPassword"'" })
 
+let model = declare("InternetGatewayDevice.DeviceInfo.ModelName", {value: 1}).value[0];
+let serialNumber = declare("DeviceID.SerialNumber", {value: 1}).value[0];
+let productClass = declare("DeviceID.ProductClass", {value: 1}).value[0];
+let oui = declare("DeviceID.OUI", {value: 1}).value[0];
+let args = {SerialNumber: serialNumber, ProductClass: productClass, OUI: oui};
+
+log("Getting device config")
+
+//Get the PPPoE creds
+let config = ext('cpe-config', 'resetPppoe', JSON.stringify(args));
+if (!config) {
+    log('No config returned from API');
+    return;
+}
 
 setConfig(config.BridgeConfig)
 setConfig(config.PPPoEConfig)
