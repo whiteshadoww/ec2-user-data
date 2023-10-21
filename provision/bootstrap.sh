@@ -13,10 +13,10 @@ let args = {SerialNumber: serialNumber, ProductClass: productClass, OUI: oui};
 
 log("Getting device config")
 
-//Get the PPPoE creds
-let config = ext('cpe-config', 'resetPppoe', JSON.stringify(args));
+//Get the creds
+let config = ext("cpe-config", "resetPppoe", JSON.stringify(args));
 if (!config) {
-    log('No config returned from API');
+    log("No config returned from API");
     return;
 }
 
