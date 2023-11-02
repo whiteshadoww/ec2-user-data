@@ -2,6 +2,11 @@
 
 curl --location --request PUT 'http://localhost:7557/provisions/oneisp-bootstrap' \
   --data-raw 'const now = Date.now();
+
+// Clear cached data model to force a refresh
+clear("Device", now);
+clear("InternetGatewayDevice", now);
+
 declare("InternetGatewayDevice.ManagementServer.ConnectionRequestUsername", { value: now }, { value: "'"$ConnectionRequestUsername"'" });
 declare("InternetGatewayDevice.ManagementServer.ConnectionRequestPassword", { value: now }, { value: "'"$ConnectionRequestPassword"'" })
 
